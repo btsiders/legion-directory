@@ -9,35 +9,30 @@ export class AppComponent implements OnInit {
   public selectedIndex = 0;
   public appPages = [
     {
-      title: 'Inbox',
-      url: '/Inbox',
+      title: 'Home',
+      url: '/Home',
       icon: 'mail'
     },
     {
-      title: 'Outbox',
-      url: '/Outbox',
+      title: 'Garrisons',
+      url: '/Garrisons',
       icon: 'paper-plane'
     },
     {
-      title: 'Favorites',
-      url: '/Favorites',
+      title: 'Detachments',
+      url: '/Detachments',
       icon: 'heart'
     },
     {
-      title: 'Archived',
-      url: '/Archived',
+      title: 'Members',
+      url: '/Members',
       icon: 'archive'
     },
     {
-      title: 'Trash',
-      url: '/Trash',
+      title: 'Verify',
+      url: '/Verify',
       icon: 'trash'
     },
-    {
-      title: 'Spam',
-      url: '/Spam',
-      icon: 'warning'
-    }
   ];
 
   constructor() { }
