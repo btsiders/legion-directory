@@ -10,28 +10,28 @@ export class AppComponent implements OnInit {
   public appPages = [
     {
       title: 'Home',
-      url: '/Home',
-      icon: 'mail'
+      url: '/home',
+      icon: 'home'
     },
     {
-      title: 'Garrisons',
-      url: '/Garrisons',
-      icon: 'paper-plane'
+      title: 'Units (Garrisons & Outposts)',
+      url: '/garrisons',
+      icon: 'map'
     },
     {
       title: 'Detachments',
-      url: '/Detachments',
-      icon: 'heart'
+      url: '/detachments',
+      icon: 'people-circle'
     },
     {
       title: 'Members',
-      url: '/Members',
-      icon: 'archive'
+      url: '/members',
+      icon: 'people'
     },
     {
       title: 'Verify',
-      url: '/Verify',
-      icon: 'trash'
+      url: '/verify',
+      icon: 'shield-checkmark'
     },
   ];
 
