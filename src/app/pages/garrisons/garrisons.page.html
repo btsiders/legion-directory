@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Units (Garrisons &amp; Outposts)</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ng-container *ngIf="(units$ | async) as units; else loading">
+      <ion-item *ngFor="let unit of units">
+        <ion-img slot="start" [src]="unit.logo"></ion-img>
+        <ion-label>
+          {{ unit.name }}
+          <ion-note>#{{ unit.id }}</ion-note>
+          <p>{{ unit.unitType }}</p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+    <ng-template #loading>
+      <ion-item *ngFor="let i of [0,1,2,3,4,5,6,7]">
+        <ion-img slot="start" src="https://www.501st.com/images/logos/125px/Fringe-Worlds.png"></ion-img>
+        <ion-label>
+          <ion-skeleton-text></ion-skeleton-text>
+          <ion-note><ion-skeleton-text></ion-skeleton-text></ion-note>
+          <p><ion-skeleton-text></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </ng-template>
+  </ion-list>
+
+</ion-content>
