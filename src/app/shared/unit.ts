@@ -1,4 +1,4 @@
-import { Officer, Member } from '../services/member-api.service';
+import { Officer, Member } from './member-api.service';
 
 /**
  * Unit (Garrison/Outpost) Interface
@@ -8,11 +8,11 @@ import { Officer, Member } from '../services/member-api.service';
  * Includes members list in garrisons/#/members call.
  */
 export interface Unit {
-    id: number,
-    name: string,
-    unitType: 'Garrison' | 'Outpost',
-    logo: string,
-    url: string,
-    officers: Officer[],
-    members?: Member[],
+    id: number;
+    name: string;
+    unitType: 'Garrison' | 'Outpost';
+    logo: string;
+    url: string;
+    officers: Officer[];
+    members?: Member[];
 }

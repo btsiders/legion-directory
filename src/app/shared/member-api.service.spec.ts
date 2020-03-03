@@ -6,7 +6,7 @@ describe('MemberApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: MemberApiService = TestBed.get(MemberApiService);
+    const service: MemberApiService = TestBed.inject(MemberApiService);
     expect(service).toBeTruthy();
   });
 });
