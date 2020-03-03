@@ -24,7 +24,7 @@
                     <ion-img slot="start" [src]="officer.primaryThumbnail" class="start-img"></ion-img>
                     <ion-label>
                         {{ officer.fullName }}
-                        <p>{{ officer.formattedLegionId | htmlDecode }}</p>
+                        <ion-note>{{ officer.formattedLegionId | htmlDecode }}</ion-note>
                         <p>{{ officer.office }} ({{ officer.officeAcronym }})</p>
                     </ion-label>
                     <ion-button slot="end" size="large" shape="round" fill="clear" color="dark" ref="nofollow noopener"
