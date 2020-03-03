@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
       icon: 'home'
     },
     {
-      title: 'Units (Garrisons & Outposts)',
+      title: 'Units',
+      subtitle: 'Garrisons & Outposts',
       url: '/garrisons',
       icon: 'map'
     },
@@ -22,11 +23,6 @@ export class AppComponent implements OnInit {
       title: 'Detachments',
       url: '/detachments',
       icon: 'people-circle'
-    },
-    {
-      title: 'Members',
-      url: '/members',
-      icon: 'people'
     },
     {
       title: 'Verify',
