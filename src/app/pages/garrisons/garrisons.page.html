@@ -1,35 +1,41 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Units (Garrisons &amp; Outposts)</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+            <!-- <ion-back-button></ion-back-button> -->
+        </ion-buttons>
+        <ion-title>Units (Garrisons &amp; Outposts)</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-list>
-    <ng-container *ngIf="(units$ | async) as units; else loading">
-      <ion-item *ngFor="let unit of units">
-        <ion-img slot="start" [src]="unit.logo"></ion-img>
-        <ion-label>
-          {{ unit.name }}
-          <ion-note>#{{ unit.id }}</ion-note>
-          <p>{{ unit.unitType }}</p>
-        </ion-label>
-      </ion-item>
-    </ng-container>
-    <ng-template #loading>
-      <ion-item *ngFor="let i of [0,1,2,3,4,5,6,7]">
-        <ion-img slot="start" src="https://www.501st.com/images/logos/125px/Fringe-Worlds.png"></ion-img>
-        <ion-label>
-          <ion-skeleton-text></ion-skeleton-text>
-          <ion-note><ion-skeleton-text></ion-skeleton-text></ion-note>
-          <p><ion-skeleton-text></ion-skeleton-text></p>
-        </ion-label>
-      </ion-item>
-    </ng-template>
-  </ion-list>
+    <ion-list>
+        <ng-container *ngIf="(units$ | async) as units; else loading">
+            <ion-item *ngFor="let unit of units">
+                <ion-img slot="start" [src]="unit.logo" class="start-img"></ion-img>
+                <ion-label>
+                    {{ unit.name }}
+                    <ion-note>{{ unit.unitType }} #{{ unit.id }}</ion-note>
+                    <p>{{ (unit.url === 'http://') ? 'No website' : unit.url }}</p>
+                </ion-label>
+                <ion-button *ngIf="unit.url !== 'http://'" slot="end" size="large" shape="round" fill="clear" color="dark" ref="nofollow noopener"
+                    target="_blank" [href]="unit.url">
+                    <ion-icon slot="icon-only" name="globe"></ion-icon>
+                </ion-button>
+            </ion-item>
+        </ng-container>
+        <ng-template #loading>
+            <ion-item *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
+                <ion-spinner slot="start" name="circles" class="start-img"></ion-spinner>
+                <ion-label>
+                    <ion-skeleton-text animated style="height:16px; width:300px"></ion-skeleton-text>
+                    <p>
+                        <ion-skeleton-text animated style="width:70px"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ng-template>
+    </ion-list>
 
 </ion-content>
