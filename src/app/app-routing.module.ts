@@ -24,9 +24,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/detachments/detachments.module').then( m => m.DetachmentsPageModule)
   },
   {
-    path: 'members',
-    loadChildren: () => import('./pages/members/members.module').then( m => m.MembersPageModule)
+    path: 'detachments/:id',
+    loadChildren: () => import('./pages/detachment/detachment.module').then( m => m.DetachmentPageModule)
   },
+  {
+    path: 'detachments/:id/members',
+    loadChildren: () => import('./pages/detachment-members/detachment-members.module').then( m => m.DetachmentMembersPageModule)
+  },
+
+
   // {
   //   path: ':id',
   //   loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
