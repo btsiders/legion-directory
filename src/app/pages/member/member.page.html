@@ -1,0 +1,116 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Legion Member</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ng-container *ngIf="(member$ | async) as member; else loading">
+
+        <ion-card>
+            <ion-grid class="outer">
+                <ion-row>
+                    <ion-col size="12" size-md="auto" class="center">
+                        <ion-img [src]="(member.thumbnail || member.primaryThumbnail) | thumbToFull" class="full-img">
+                        </ion-img>
+                    </ion-col>
+                    <ion-col>
+                        <ion-card-header>
+                            <ion-card-title>{{ member.fullName }}</ion-card-title>
+                            <ion-card-subtitle>{{ member.formattedLegionId | htmlDecode }}</ion-card-subtitle>
+                        </ion-card-header>
+                        <ion-grid class="details">
+                            <ion-row>
+                                <ion-col size="12" size-sm="4" size-md="6" size-xl="4">
+                                    <ion-item>
+                                        <ion-label position="stacked">First name</ion-label>
+                                        <ion-text>{{ member.firstName }}</ion-text>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="12" size-sm="4" size-md="6" size-xl="4">
+                                    <ion-item>
+                                        <ion-label position="stacked">Last name</ion-label>
+                                        <ion-text>{{ member.lastName }}</ion-text>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="12" size-sm="4" size-md="6" size-xl="4">
+                                    <ion-item>
+                                        <ion-label position="stacked">Forum name</ion-label>
+                                        <ion-text>{{ member.forumName }}</ion-text>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="12" size-sm="8" size-md="12" size-xl="8">
+                                    <ion-item>
+                                        <ion-label position="stacked">
+                                            Garrison
+                                            <span *ngIf="member.squadId">/ Squad</span>
+                                        </ion-label>
+                                        <ion-text>
+                                            <a [routerLink]="['/garrisons', member.garrisonId]">{{ member.garrisonName }}</a>
+                                            <span *ngIf="member.squadId"> / {{ member.squad }}</span>
+                                        </ion-text>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="12" size-sm="4" size-md="6" size-xl="4">
+                                    <ion-item>
+                                        <ion-label position="stacked">Join date</ion-label>
+                                        <ion-text>{{ member.joinDate | date }}</ion-text>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="12" size-sm="4" size-md="6" size-xl="4">
+                                    <ion-item>
+                                        <ion-label position="stacked">Approved</ion-label>
+                                        <ion-text>{{ member.memberApproved }}</ion-text>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="12" size-sm="4" size-md="6" size-xl="4">
+                                    <ion-item>
+                                        <ion-label position="stacked">Status</ion-label>
+                                        <ion-text>{{ member.memberStatus }}</ion-text>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="12" size-sm="4" size-md="6" size-xl="4">
+                                    <ion-item>
+                                        <ion-label position="stacked">Standing</ion-label>
+                                        <ion-text>{{ member.memberStanding }}</ion-text>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+
+        <div *ngIf="member.costumes">
+
+            <ion-list-header>Costumes: {{ member.costumes.length }}</ion-list-header>
+
+            <ion-card *ngFor="let costume of member.costumes">
+                <ion-item>
+                    <!-- <ion-img slot="start" class="start-img" [src]="costume.thumbnail"></ion-img> -->
+                    <ion-label class="ion-text-wrap">
+                        {{ costume.costumeName }}
+                        <ion-note>({{ costume.prefix }})</ion-note>
+                    </ion-label>
+                </ion-item>
+                <div class="images">
+                    <ion-img [src]="costume.photoURL" class="full-img" (ionError)="showPlaceholder($event)"></ion-img>
+                    <ion-img [src]="costume.bucketOffPhoto" class="bucket-off" (ionError)="showPlaceholder($event)">
+                    </ion-img>
+                    <ion-img [src]="costume.thumbnail" class="thumb-img" (ionError)="showPlaceholder($event)">
+                    </ion-img>
+                </div>
+            </ion-card>
+        </div>
+    </ng-container>
+    <ng-template #loading>
+        <ion-spinner slot="start" name="circles" class="start-img"></ion-spinner>
+    </ng-template>
+</ion-content>

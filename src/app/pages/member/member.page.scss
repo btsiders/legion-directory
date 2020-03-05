@@ -1,0 +1,53 @@
+// .outer {
+//     --padding-start: 0;
+//     --ion-grid-column-padding: 0;
+//     ion-card-header {
+//         padding: 4px;
+//     }    
+//     ion-item {
+//         --padding-start: 0;
+//     }    
+// }
+
+.details {
+    --border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+    border: 1px solid var(--border-color);
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+.images {
+    display: flex;
+    flex-direction: row;
+
+    ion-img {
+        margin: 8px;
+        object-position: top;
+    }
+}
+
+.full-img {
+    width: 240px;
+    height: 300px;
+}
+
+.bucket-off {
+    width: 179px;
+    height: 200px;
+}
+
+@media screen and (max-width:575px) {
+    .images {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        ion-img {
+            margin: 8px;
+            object-position: inherit;
+        }
+    }
+}
