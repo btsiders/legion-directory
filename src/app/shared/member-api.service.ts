@@ -3,41 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, publishReplay, refCount } from 'rxjs/operators';
 import { Unit } from './unit';
+import { Detachment } from './detachment';
+import { Member } from './member';
 
 export const API_URL = 'https://www.501st.com/memberAPI/v3';
-
-/** Detachment Interface */
-export interface Detachment {
-    detachmentId: number;
-    name: string;
-    url: string;
-    officers: Officer[];
-    members?: Member[];
-    /** logo calculated, not sent */
-    logo?: string;
-}
-
-/** Member Interface */
-export interface Member {
-    legionId: number;
-    formattedLegionId: string;
-    fullName: string;
-    thumbnail: string;
-    link: string;
-}
-
-/** Officer Interface */
-export interface Officer {
-    officeAcronym: string;
-    office: string;
-    legionId: number;
-    formattedLegionId: string;
-    fullName: string;
-    firstName: string;
-    lastName: string;
-    profileUrl: string;
-    primaryThumbnail: string;
-}
+export const LOGO_THUMBNAIL_SIZE = 125;
 
 @Injectable({
     providedIn: 'root'
@@ -80,7 +50,7 @@ export class MemberApiService {
                             dashName = 'FISD'; // shorter!
                         }
 
-                        detachment.logo = `https://www.501st.com/images/logos/125px/${dashName}.png`;
+                        detachment.logo = `https://www.501st.com/images/logos/${LOGO_THUMBNAIL_SIZE}px/${dashName}.png`;
                         detachment.url = `http://${detachment.url}`;
                     });
                     return detachments;
@@ -159,7 +129,20 @@ export class MemberApiService {
      */
     public getUnitMembers(id: number): Observable<Unit> {
         const url = `${API_URL}/garrisons/${id}/members`;
-        return this.http.get<Unit>(url);
+        return this.http.get(url)
+            .pipe(map((res: { unit: Unit }) => res.unit));
+    }
+
+    /** Get member */
+    public getMember(id: number): Observable<Member> {
+        const url = `${API_URL}/legionId/${id}/costumes`;
+        return this.http
+            .get<Member>(url)
+            // .pipe(
+            //     map((res: { member: Member }) => res.member),
+            //     publishReplay(1),
+            //     refCount())
+            .pipe(catchError(this.handleError));
     }
 
     /**
