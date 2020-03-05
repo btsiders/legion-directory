@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
       icon: 'people-circle'
     },
     {
-      title: 'Verify',
+      title: 'Verify member',
       url: '/verify',
       icon: 'shield-checkmark'
     },
