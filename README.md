@@ -1,12 +1,7 @@
-# 501st
-Interface for the 501st Legion Member API
+# Legion Directory
+Interface for the Legion Member API
 
 Built on top of these API calls:
-
-* http://www.501st.com/api/email/501st@sypher.org (good)
-* http://www.501st.com/api/email/501st@example.com (bad)
-* http://www.501st.com/api/garrisons/57
-* http://www.501st.com/api/garrisons/57/members
 
 * https://www.501st.com/memberAPI/v3/garrisons
 * https://www.501st.com/memberAPI/v3/garrisons/140
