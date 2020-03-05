@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
             <ion-back-button defaultHref="/detachments"></ion-back-button>
@@ -20,7 +20,7 @@
             </ion-list-header>
             <ion-item-group>
                 <ion-item-divider sticky="true">Officers</ion-item-divider>
-                <ion-item *ngFor="let officer of detachment.officers">
+                <ion-item *ngFor="let officer of detachment.officers" [routerLink]="['/member', officer.legionId]">
                     <ion-img slot="start" [src]="officer.primaryThumbnail" class="start-img"></ion-img>
                     <ion-label>
                         {{ officer.fullName }}

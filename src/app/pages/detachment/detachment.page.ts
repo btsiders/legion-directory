@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Detachment, MemberApiService } from 'src/app/shared/member-api.service';
 import { BehaviorSubject } from 'rxjs';
+import { MemberApiService } from 'src/app/shared/member-api.service';
+import { Detachment } from 'src/app/shared/detachment';
 
 @Component({
     selector: 'app-detachment',
