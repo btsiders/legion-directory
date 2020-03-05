@@ -1,9 +1,76 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>verify</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+            <!-- <ion-back-button></ion-back-button> -->
+        </ion-buttons>
+        <ion-title>Verify Member</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+    <div class="max-480">
+        <ion-card class="good status-card" *ngIf="verifiedId" color="success">
+            <ion-card-header>
+                <ion-item lines="none" color="success">
+                    <ion-icon name="shield-checkmark-outline" slot="start"></ion-icon>
+                    <ion-card-title>
+                        Verified
+                    </ion-card-title>
+                </ion-item>
+            </ion-card-header>
+            <ion-card-content>
+                <h1>
+                    {{ verifiedEmail }}<br>
+                    verified as<br>
+                    TKID {{ verifiedId }}<br>
+                    <ion-button color="success" [routerLink]="['/member', verifiedId]">View Profile</ion-button>
+                </h1>
+            </ion-card-content>
+        </ion-card>
 
+        <ion-card class="bad status-card" color="danger" *ngIf="errorMessage">
+            <ion-card-header>
+                <ion-item color="danger" lines="none">
+                    <ion-icon name="alert-circle-outline" slot="start"></ion-icon>
+                    <ion-card-title>Not Verified</ion-card-title>
+                </ion-item>
+            </ion-card-header>
+            <ion-card-content>
+                <h1>
+                    Error verifying<br>
+                    <strong>{{ verifiedEmail }}</strong>
+                    <br><br>
+                    {{ errorMessage }}
+                </h1>
+            </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+            <ion-card-content>
+                <ion-card-header>
+                    <p>
+                        The Legion Member API can verify a member is active
+                        when passed the member's email address. It returns
+                        the TKID associated with the email address.
+                    </p>
+                </ion-card-header>
+                <form (submit)="verify($event)">
+                    <ion-item>
+                        <ion-label position="floating">
+                            Email address
+                        </ion-label>
+                        <ion-input autofocus="true" inputmode="email" [pattern]="emailPattern" required="true"
+                            type="email">
+                        </ion-input>
+                    </ion-item>
+                    <div class="buttons">
+                        <ion-button type="submit">
+                            Verify
+                        </ion-button>
+                    </div>
+                </form>
+            </ion-card-content>
+        </ion-card>
+    </div>
 </ion-content>
