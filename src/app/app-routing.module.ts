@@ -8,16 +8,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'verify',
-    loadChildren: () => import('./pages/verify/verify.module').then( m => m.VerifyPageModule)
-  },
-  {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: 'garrisons',
-    loadChildren: () => import('./pages/garrisons/garrisons.module').then( m => m.GarrisonsPageModule)
   },
   {
     path: 'detachments',
@@ -31,12 +23,22 @@ const routes: Routes = [
     path: 'detachments/:id/members',
     loadChildren: () => import('./pages/detachment-members/detachment-members.module').then( m => m.DetachmentMembersPageModule)
   },
-
-
-  // {
-  //   path: ':id',
-  //   loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
-  // },
+  {
+    path: 'garrisons',
+    loadChildren: () => import('./pages/garrisons/garrisons.module').then( m => m.GarrisonsPageModule)
+  },
+  {
+    path: 'garrisons/:id',
+    loadChildren: () => import('./pages/garrison/garrison.module').then( m => m.GarrisonPageModule)
+  },
+  {
+    path: 'member/:id',
+    loadChildren: () => import('./pages/member/member.module').then( m => m.MemberPageModule)
+  },
+  {
+    path: 'verify',
+    loadChildren: () => import('./pages/verify/verify.module').then( m => m.VerifyPageModule)
+  },
 ];
 
 @NgModule({
