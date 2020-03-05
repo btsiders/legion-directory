@@ -1,13 +1,41 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
         <!-- <ion-back-button></ion-back-button> -->
     </ion-buttons>
-    <ion-title>501st Directory</ion-title>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+    <h1>Welcome to the Legion Directory</h1>
 
+    <p>
+        This application is a wrapper for the 501st Legion Member API v3.
+        There is no documentation for the API at the moment, so everything
+        here was pieced together from forum posts.
+    </p>
+    <p>
+        Currently, you can view the following:
+    </p>
+    <ul>
+        <li>A list of all detachments.</li>
+        <li>A specific detachment, including officers.</li>
+        <li>A list of all garrisons and outposts.</li>
+        <li>A specific garrison or outpost, its officers, and its members.</li>
+        <li>A specific member, including all of the members registered costumes.</li>
+        <li>A verification page that looks up the given email address and 
+            returns the associated Legion ID if the member is active</li>
+    </ul>
+
+    <p>
+        Next on the development agenda:
+    </p>
+    <ul>
+        <li>Global search by Legion ID, email address, detachment name, garrison name, or outpost name.</li>
+        <li>Updated styling.</li>
+        <li>About, privacy, and terms pages.</li>
+        <li>Request something!</li>
+    </ul>
 </ion-content>
