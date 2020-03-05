@@ -1,0 +1,66 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+            <ion-back-button defaultHref="/garrisons"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Garrison</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ng-container *ngIf="(unit$ | async) as unit; else loading">
+        <ion-list>
+            <ion-list-header>
+                <ion-label>
+                    {{ unit.name }}
+                    <ion-note>{{ unit.unitType }} #{{ unit.id }}</ion-note>
+                    <p>{{ (unit.url === 'http://') ? 'No website' : unit.url }}</p>
+                </ion-label>
+            </ion-list-header>
+            <ion-item-group>
+                <ion-item-divider sticky="true">Officers: {{ unit.officers.length }}</ion-item-divider>
+                <ion-item *ngFor="let officer of unit.officers" [routerLink]="['/member', officer.legionId]">
+                    <ion-img slot="start" [src]="officer.primaryThumbnail" class="start-img"></ion-img>
+                    <ion-label>
+                        {{ officer.fullName }}
+                        <ion-note>{{ officer.formattedLegionId | htmlDecode }}</ion-note>
+                        <p>{{ officer.office }} ({{ officer.officeAcronym }})</p>
+                    </ion-label>
+                    <ion-button slot="end" size="large" shape="round" fill="clear" color="dark" ref="nofollow noopener"
+                        target="_blank" [href]="officer.profileUrl">
+                        <ion-icon slot="icon-only" name="globe"></ion-icon>
+                    </ion-button>
+                </ion-item>
+            </ion-item-group>
+            <ion-item-group>
+                <ion-item-divider sticky="true">Members: {{ unit.members.length }}</ion-item-divider>
+                <ion-item *ngFor="let member of unit.members" [href]="'/member/' + member.legionId">
+                    <ion-img slot="start" [src]="member.thumbnail" class="start-img"></ion-img>
+                    <ion-label>
+                        {{ member.fullName }}
+                        <ion-note>{{ member.formattedLegionId | htmlDecode }}</ion-note>
+                        <p *ngIf="member.squadId">{{ member.squad }}</p>
+                    </ion-label>
+                    <ion-button slot="end" size="large" shape="round" fill="clear" color="dark" ref="nofollow noopener"
+                        target="_blank" [href]="member.link">
+                        <ion-icon slot="icon-only" name="globe"></ion-icon>
+                    </ion-button>
+                </ion-item>
+            </ion-item-group>
+        </ion-list>
+    </ng-container>
+    <ng-template #loading>
+        <ion-list>
+            <ion-item *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
+                <ion-spinner slot="start" name="circles" class="start-img"></ion-spinner>
+                <ion-label>
+                    <ion-skeleton-text animated style="height:16px; width:300px"></ion-skeleton-text>
+                    <p>
+                        <ion-skeleton-text animated style="width:70px"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </ng-template>
+</ion-content>
