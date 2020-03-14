@@ -1,20 +1,27 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-        <!-- <ion-back-button></ion-back-button> -->
-    </ion-buttons>
-    <ion-title>Home</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+            <!-- <ion-back-button></ion-back-button> -->
+        </ion-buttons>
+        <ion-title>Home</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-    <h1>Welcome to the Legion Directory</h1>
+    <h1>
+        <ion-img src="/assets/icon/favicon.png" class="logo"></ion-img>
+        Welcome to the Legion Directory
+    </h1>
 
     <p>
-        This application is a wrapper for the 501st Legion Member API v3.
-        There is no documentation for the API at the moment, so everything
-        here was pieced together from forum posts.
+        <strong>
+            This website/application is not affiliated with the 501st Legion.
+            This is a 3rd-party service that utilizes data made public
+            by the 501st Legion Member API v3. There is no documentation
+            for the API at the moment, so everything here was pieced together
+            from forum posts.
+        </strong>
     </p>
     <p>
         Currently, you can view the following:
@@ -25,7 +32,7 @@
         <li>A list of all garrisons and outposts.</li>
         <li>A specific garrison or outpost, its officers, and its members.</li>
         <li>A specific member, including all of the members registered costumes.</li>
-        <li>A verification page that looks up the given email address and 
+        <li>A verification page that looks up the given email address and
             returns the associated Legion ID if the member is active</li>
     </ul>
 
@@ -38,4 +45,15 @@
         <li>About, privacy, and terms pages.</li>
         <li>Request something!</li>
     </ul>
+
+    <ion-text color="medium">
+        <p>
+            The 501st Legion is a worldwide Star Wars costuming organization
+            comprised of and operated by Star Wars fans. While it is not
+            sponsored by Lucasfilm Ltd., it is Lucasfilm’s preferred
+            Imperial costuming group. Star Wars, its characters, costumes,
+            and all associated items are the intellectual property of Lucasfilm.
+            ©2019 Lucasfilm Ltd. & ™ All rights reserved. Used under authorization.
+        </p>
+    </ion-text>
 </ion-content>

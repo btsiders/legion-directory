@@ -2,7 +2,7 @@
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
-            <ion-back-button defaultHref="/detachments"></ion-back-button>
+            <ion-back-button defaultHref="detachments"></ion-back-button>
         </ion-buttons>
         <ion-title>Detachment</ion-title>
     </ion-toolbar>
@@ -10,14 +10,28 @@
 
 <ion-content>
     <ng-container *ngIf="(detachment$ | async) as detachment; else loading">
-        <ion-list>
-            <ion-list-header>
+        <ion-card>
+            <ion-item>
+                <div slot="start" class="loading-back no-joy"
+                    title="API doesn't return the detachment logo in this call">
+                    <ion-icon name="help-outline"></ion-icon>
+                </div>
                 <ion-label>
                     {{ detachment.name }}
                     <ion-note>#{{ detachment.detachmentId }}</ion-note>
-                    <p>{{ detachment.url }}</p>
+                    <ng-container *ngIf="(detachment.url === 'http://'); else detLink">
+                        <p>No website</p>
+                    </ng-container>
+                    <ng-template #detLink>
+                        <p>
+                            <a [href]="detachment.url" target="_blank" rel="nofollow noopener" class="secondary">{{ detachment.url }}</a>
+                        </p>
+                    </ng-template>
                 </ion-label>
-            </ion-list-header>
+            </ion-item>
+        </ion-card>
+
+        <ion-list>
             <ion-item-group>
                 <ion-item-divider sticky="true">Officers</ion-item-divider>
                 <ion-item *ngFor="let officer of detachment.officers" [routerLink]="['/member', officer.legionId]">
@@ -38,7 +52,7 @@
     <ng-template #loading>
         <ion-list>
             <ion-item *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]">
-                <ion-spinner slot="start" name="circles" class="start-img"></ion-spinner>
+                <ion-spinner slot="start" class="start-img"></ion-spinner>
                 <ion-label>
                     <ion-skeleton-text animated style="height:16px; width:300px"></ion-skeleton-text>
                     <p>

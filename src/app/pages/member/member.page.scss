@@ -34,6 +34,17 @@
     height: 300px;
 }
 
+.placeholder {
+    background-color: var(--ion-color-primary-shade);
+    --color: var(--ion-color-primary-contrast);
+    
+    ion-spinner {
+        width: 120px;
+        height: 120px;
+        margin: 90px 0 0 60px;
+    }
+}
+
 .bucket-off {
     width: 179px;
     height: 200px;

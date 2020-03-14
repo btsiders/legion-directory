@@ -20,6 +20,10 @@ export class DetachmentsPage implements OnInit {
         this.getDetachments();
     }
 
+    public noClick(event: Event) {
+        event.stopPropagation();
+    }
+
     private async getDetachments() {
         const detachments = await this.memberApiService.getDetachments().toPromise();
         console.log(detachments);

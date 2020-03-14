@@ -2,7 +2,7 @@
     <ion-toolbar color="primary">
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
-            <!-- <ion-back-button></ion-back-button> -->
+            <ion-back-button defaultHref="home"></ion-back-button>
         </ion-buttons>
         <ion-title>Verify Member</ion-title>
     </ion-toolbar>
@@ -21,11 +21,11 @@
             </ion-card-header>
             <ion-card-content>
                 <h1>
-                    {{ verifiedEmail }}<br>
+                    <code>{{ verifiedEmail }}</code><br>
                     verified as<br>
-                    TKID {{ verifiedId }}<br>
-                    <ion-button color="success" [routerLink]="['/member', verifiedId]">View Profile</ion-button>
+                    TKID <strong>{{ verifiedId }}</strong><br>
                 </h1>
+                <ion-button color="success" [routerLink]="['/member', verifiedId]">View Member</ion-button>
             </ion-card-content>
         </ion-card>
 
@@ -38,11 +38,11 @@
             </ion-card-header>
             <ion-card-content>
                 <h1>
-                    Error verifying<br>
-                    <strong>{{ verifiedEmail }}</strong>
-                    <br><br>
-                    {{ errorMessage }}
+                    <code>{{ verifiedEmail }}</code>
                 </h1>
+                <h2>
+                    {{ errorMessage }}
+                </h2>
             </ion-card-content>
         </ion-card>
 
@@ -55,12 +55,12 @@
                         the TKID associated with the email address.
                     </p>
                 </ion-card-header>
-                <form (submit)="verify($event)">
+                <form #myForm="ngForm" (ngSubmit)="verify(myForm)">
                     <ion-item>
-                        <ion-label position="floating">
-                            Email address
+                        <ion-label>
+                            Email:
                         </ion-label>
-                        <ion-input autofocus="true" inputmode="email" [pattern]="emailPattern" required="true"
+                        <ion-input [ngModel]="verifiedEmail" name="email" autofocus required inputmode="email" [pattern]="emailPattern"
                             type="email">
                         </ion-input>
                     </ion-item>

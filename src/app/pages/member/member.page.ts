@@ -13,6 +13,7 @@ import { Costume } from 'src/app/shared/costume';
 export class MemberPage implements OnInit {
 
     member$ = new BehaviorSubject<Member>(null);
+    garrisonPage = null;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -33,6 +34,7 @@ export class MemberPage implements OnInit {
 
     private async getMember(id: number) {
         const member = await this.memberApiService.getMember(id).toPromise();
+        this.garrisonPage = `garrisons/${member.garrisonId}`;
         console.log(member);
         this.member$.next(member);
     }

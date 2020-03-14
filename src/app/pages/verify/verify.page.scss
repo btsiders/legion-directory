@@ -21,3 +21,8 @@
         text-align: center;
     }
 }
+
+ion-item {
+    --highlight-color-focused: var(--ion-text-color);
+    --highlight-color-valid: var(--ion-text-color);
+}
