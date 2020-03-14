@@ -29,29 +29,8 @@ export class MemberApiService {
                 .pipe(map((res: { detachments: [] }) => {
                     const detachments = res.detachments;
                     detachments.map((detachment: Detachment) => {
-
-                        const dashNameArray = detachment.name
-                            .toLowerCase()
-                            .split(/\s/);
-                        let dashName = dashNameArray.map(d => d[0].toUpperCase() + d.substr(1)).join('-');
-
-                        // Special cases
-                        if (dashName === 'Armored-Cavalry-Detachment') {
-                            dashName = 'Armored-Calvary-Detachment'; // derp typo
-                        } else if (dashName === 'Spec-Ops-Detachment') {
-                            dashName = 'Special-Ops-Detachment'; // make it longer!
-                        } else if (dashName === 'The-Flagship-Eclipse-Detachment') {
-                            dashName = 'Flagship-Eclipse'; // make it shorter!
-                        } else if (dashName === 'Underworld-Detachment') {
-                            dashName = 'Underworld'; // shorter!
-                        } else if (dashName === 'Mos-Eisley-Police-Department') {
-                            dashName = 'MEPD'; // shorter!
-                        } else if (dashName === 'First-Imperial-Stormtrooper-Detachment') {
-                            dashName = 'FISD'; // shorter!
-                        }
-
-                        detachment.logo = `https://www.501st.com/images/logos/${LOGO_THUMBNAIL_SIZE}px/${dashName}.png`;
-                        detachment.url = `http://${detachment.url}`;
+                        this.fixDetachmentLogo(detachment);
+                        this.fixDetachmentUrl(detachment);
                     });
                     return detachments;
                 }), publishReplay(1), refCount())
@@ -61,13 +40,42 @@ export class MemberApiService {
         return this.detachments;
     }
 
+    private fixDetachmentLogo(detachment: Detachment) {
+        const dashNameArray = detachment.name
+            .toLowerCase()
+            .split(/\s/);
+        let dashName = dashNameArray.map(d => d[0].toUpperCase() + d.substr(1)).join('-');
+        // Special cases
+        if (dashName === 'Armored-Cavalry-Detachment') {
+            dashName = 'Armored-Calvary-Detachment'; // derp typo
+        } else if (dashName === 'Spec-Ops-Detachment') {
+            dashName = 'Special-Ops-Detachment'; // make it longer!
+        } else if (dashName === 'The-Flagship-Eclipse-Detachment') {
+            dashName = 'Flagship-Eclipse'; // make it shorter!
+        } else if (dashName === 'Underworld-Detachment') {
+            dashName = 'Underworld'; // shorter!
+        } else if (dashName === 'Mos-Eisley-Police-Department') {
+            dashName = 'MEPD'; // shorter!
+        } else if (dashName === 'First-Imperial-Stormtrooper-Detachment') {
+            dashName = 'FISD'; // shorter!
+        }
+        detachment.logo = `https://www.501st.com/images/logos/${LOGO_THUMBNAIL_SIZE}px/${dashName}.png`;
+    }
+
+    private fixDetachmentUrl(detachment: Detachment) {
+        detachment.url = `http://${detachment.url}`;
+    }
+
     /** Get detachment */
     public getDetachment(id: number): Observable<Detachment> {
         const url = `${API_URL}/detachments/${id}`;
         return this.http
             .get(url)
             .pipe(
-                map((res: { detachment: Detachment }) => res.detachment),
+                map((res: { detachment: Detachment }) => {
+                    this.fixDetachmentUrl(res.detachment);
+                    return res.detachment;
+                }),
                 publishReplay(1),
                 refCount())
             .pipe(catchError(this.handleError));
@@ -80,6 +88,7 @@ export class MemberApiService {
             .get(url)
             .pipe(map((res: { detachment: Detachment, unit: any }) => {
                 const detachment: Detachment = res.detachment;
+                this.fixDetachmentUrl(detachment);
                 detachment.members = res.unit.members;
                 return detachment;
             }), publishReplay(1), refCount())
@@ -96,11 +105,7 @@ export class MemberApiService {
                 .pipe(map((res: { garrisons: [] }) => {
                     const units = res.garrisons;
                     units.map((unit: Unit) => {
-                        // fix up img url
-                        // ? Maybe this can be done in 1 regex using a result?
-                        unit.logo = unit.logo
-                            .replace(`<img src="`, '')
-                            .replace(`" class="png" width="125px">`, '');
+                        this.fixLogo(unit);
                     });
                     return units;
                 }), publishReplay(1), refCount())
@@ -120,7 +125,13 @@ export class MemberApiService {
      */
     public getUnit(id: number): Observable<Unit> {
         const url = `${API_URL}/garrisons/${id}`;
-        return this.http.get<Unit>(url);
+        return this.http
+            .get<Unit>(url)
+            .pipe(map((unit: Unit) => {
+                this.fixLogo(unit);
+                return unit;
+            }), publishReplay(1), refCount())
+            .pipe(catchError(this.handleError));
     }
 
     /**
@@ -130,7 +141,21 @@ export class MemberApiService {
     public getUnitMembers(id: number): Observable<Unit> {
         const url = `${API_URL}/garrisons/${id}/members`;
         return this.http.get(url)
-            .pipe(map((res: { unit: Unit }) => res.unit));
+            .pipe(map((res: { unit: Unit }) => {
+                this.fixLogo(res.unit);
+                return res.unit;
+            }))
+            .pipe(catchError(this.handleError));
+    }
+
+    /**
+     * fix up img url
+     * ? Maybe this can be done in 1 regex using a result?
+     */
+    private fixLogo(unit: Unit) {
+        unit.logo = unit.logo
+            .replace(`<img src="`, '')
+            .replace(`" class="png" width="125px">`, '');
     }
 
     /** Get member */
