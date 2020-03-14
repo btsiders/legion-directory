@@ -73,6 +73,7 @@ export class MemberApiService {
             .get(url)
             .pipe(
                 map((res: { detachment: Detachment }) => {
+                    this.fixDetachmentLogo(res.detachment);
                     this.fixDetachmentUrl(res.detachment);
                     return res.detachment;
                 }),

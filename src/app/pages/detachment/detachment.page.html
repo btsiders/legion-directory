@@ -12,10 +12,7 @@
     <ng-container *ngIf="(detachment$ | async) as detachment; else loading">
         <ion-card>
             <ion-item>
-                <div slot="start" class="loading-back no-joy"
-                    title="API doesn't return the detachment logo in this call">
-                    <ion-icon name="help-outline"></ion-icon>
-                </div>
+                <ion-img slot="start" [src]="detachment.logo" class="logo"></ion-img>
                 <ion-label>
                     {{ detachment.name }}
                     <ion-note>#{{ detachment.detachmentId }}</ion-note>

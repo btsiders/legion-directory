@@ -1,9 +1,12 @@
-.no-joy {
+.logo {
+    margin-top: 16px;
+    margin-bottom: 16px;
     width: 125px;
-    height: 125px;
+    min-height: 125px;
     display: flex;
     align-items: center;
     justify-content: center;
+
     ion-icon {
         width: 64px;
         height: 64px;
