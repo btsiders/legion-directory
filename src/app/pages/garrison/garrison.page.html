@@ -12,7 +12,7 @@
     <ng-container *ngIf="(unit$ | async) as unit; else loading">
         <ion-card>
             <ion-item>
-                <ion-img slot="start" [src]="unit.logo" class="g-logo"></ion-img>
+                <ion-img slot="start" [src]="unit.logo" class="logo"></ion-img>
                 <ion-label>
                     {{ unit.name }}
                     <ion-note>{{ unit.unitType }} #{{ unit.id }}</ion-note>
